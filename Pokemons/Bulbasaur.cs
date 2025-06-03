@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PokemonSimulator.Types;
 
 namespace PokemonSimulator.Models
 {
-    class Bulbasaur
+    class Bulbasaur(int level, List<Attack> attacks) : GrassPokemon("Bulbasaur", level, attacks)
     {
     }
 }

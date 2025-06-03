@@ -1,4 +1,5 @@
 ﻿using PokemonSimulator.Enums;
+using System.Collections.Concurrent;
 
 namespace PokemonSimulator;
 
@@ -6,10 +7,7 @@ public abstract class Pokemon
 {
     private string name;
     private int level;
-    // This exposes the internal list of attacks as a read-only list.
-    // Other classes can view the attacks, but cannot modify the list (add/remove).
-    private readonly List<Attack> attacks = new();
-    public IReadOnlyList<Attack> Attacks => attacks.AsReadOnly();
+    public List<Attack> Attacks = new();
     public ElementalType Elemental { get; }
 
     public int Level
@@ -33,12 +31,12 @@ public abstract class Pokemon
         }
     }
 
-    protected Pokemon(string name, ElementalType elemental, int level, List<Attack> initialAttacks)
+    protected Pokemon(string name, ElementalType elemental, int level, List<Attack> attacks)
     {
         Name = name;
         Elemental = elemental;
         Level = level;
-        attacks.AddRange(initialAttacks);
+        Attacks = attacks;
     }
 
     public void RandomAttack()
@@ -47,7 +45,6 @@ public abstract class Pokemon
         int randomNumber = random.Next(Attacks.Count);
 
         Attack randomAttackFromList = Attacks[randomNumber];
-
         randomAttackFromList.Use(Level);
     }
 
@@ -57,19 +54,13 @@ public abstract class Pokemon
         {
             Console.WriteLine($"{i} - {attacks[i].Name}");
         }
+        Console.WriteLine($"{attacks.Count} - Random attack");
+
         int chosenAttack = int.Parse(Console.ReadLine());
 
-        if (chosenAttack == 0)
+        if(chosenAttack == attacks.Count())
         {
-            Console.WriteLine($"Your choice is: {attacks[chosenAttack].Name}");
-        }
-        else if(chosenAttack == 1)
-        {
-            Console.WriteLine($"Your choice is: {attacks[chosenAttack].Name}");
-        }
-        else
-        {
-            Console.WriteLine("Felaktig input");
+            RandomAttack();
         }
 
         attacks[chosenAttack].Use(Level);

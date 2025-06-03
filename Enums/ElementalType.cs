@@ -4,5 +4,6 @@
     {
         Fire,
         Water,
-        Electric
+        Electric,
+        Grass
     }
