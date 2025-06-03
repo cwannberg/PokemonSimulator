@@ -1,17 +1,11 @@
 ﻿using PokemonSimulator.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace PokemonSimulator;
 
 public class Attack
 {
-    public string Name { get; set; }
-    public int BasePower { get; set; }
-    public ElementalType Element { get; set; }
+    public string Name { get; }
+    public int BasePower { get; }
+    public ElementalType Element { get; }
 
     public Attack(string name, ElementalType element, int basepower)
     {

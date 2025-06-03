@@ -1,14 +1,17 @@
 ﻿using PokemonSimulator.Enums;
-using System.Threading.Channels;
 
-namespace PokemonSimulator.Models;
+namespace PokemonSimulator;
 
 public abstract class Pokemon
 {
-    public List<Attack> Attacks { get; set; }
+    private string name;
+    private int level;
+    // This exposes the internal list of attacks as a read-only list.
+    // Other classes can view the attacks, but cannot modify the list (add/remove).
+    private readonly List<Attack> attacks = new();
+    public IReadOnlyList<Attack> Attacks => attacks.AsReadOnly();
     public ElementalType Elemental { get; }
-    public string name;
-    public int level;
+
     public int Level
     {
         get => level;
@@ -22,7 +25,7 @@ public abstract class Pokemon
     public string Name
     {
         get => name;
-        private set
+        set
         {
             if (value.Length <2 || value.Length > 15)
                 throw new ArgumentOutOfRangeException(nameof(Level), "Name must be between 2 and 15 characters long");
@@ -30,12 +33,12 @@ public abstract class Pokemon
         }
     }
 
-    public Pokemon(string name, ElementalType elemental, int level, List<Attack> attacks)
+    protected Pokemon(string name, ElementalType elemental, int level, List<Attack> initialAttacks)
     {
         Name = name;
         Elemental = elemental;
         Level = level;
-        Attacks = attacks;
+        attacks.AddRange(initialAttacks);
     }
 
     public void RandomAttack()
@@ -68,6 +71,8 @@ public abstract class Pokemon
         {
             Console.WriteLine("Felaktig input");
         }
+
+        attacks[chosenAttack].Use(Level);
     }
 
     public void RaiseLevel()

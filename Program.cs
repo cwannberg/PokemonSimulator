@@ -1,11 +1,18 @@
 ﻿using PokemonSimulator.Enums;
+using PokemonSimulator.Interface;
 using PokemonSimulator.Models;
 
 namespace PokemonSimulator
 {
     internal class Program
     {
+
         static void Main(string[] args)
+        {
+            InitiatePokemons();
+        }
+
+        public static void InitiatePokemons()
         {
             var flamethrower = new Attack("Flamethrower", ElementalType.Fire, 12);
             var ember = new Attack("Ember", ElementalType.Fire, 6);
@@ -17,24 +24,31 @@ namespace PokemonSimulator
             var lightning = new Attack("Lightning", ElementalType.Electric, 16);
 
             List<Attack> charmanderAttacks = new List<Attack>() { flamethrower, ember };
-            List<Attack> squirtleAttacks = new List<Attack>() { torrent, splash};
-            List<Attack> pikachuAttacks = new List<Attack>() { staticParalyze, lightning };
+            List<Attack> squirtleAttacks = new List<Attack>() { torrent, splash };
+            List<Attack> pikachuAttacks = new List<Attack>() { staticParalyze, lightning };           
 
             Charmander charmander = new(4, charmanderAttacks);
             Squirtle squirtle = new(5, squirtleAttacks);
-            Pikachu pikachu = new(8, pikachuAttacks);;
+            Pikachu pikachu = new(8, pikachuAttacks);
 
-            squirtle.GetAttack(squirtleAttacks);
-            squirtle.RandomAttack();
-            Console.WriteLine($"{squirtle.Name} is a level {squirtle.Level} {squirtle.Elemental} pokemon");
-            Console.WriteLine($"{charmander.Name} is a level {charmander.Level} {charmander.Elemental} pokemon");
-            Console.WriteLine($"{pikachu.Name} is a level {pikachu.Level} {pikachu.Elemental} pokemon");
+            Fight(charmander, charmanderAttacks);
+            EvolvePokemon(pikachu);
+            EvolvePokemon(squirtle);
+        }
 
-            Console.WriteLine($"{squirtle.Name} is a level {squirtle.Level} {squirtle.Elemental} pokemon");
-            for(int i= 0; i<squirtle.Attacks.Count; i++)
+        public static void Fight(Pokemon pokemon, List<Attack> attacks)
+        {
+            pokemon.GetAttack(attacks);
+        }
+
+        public static void EvolvePokemon(Pokemon pokemon) {
+            if (pokemon is IEvolvable evolvable)
             {
-                Console.WriteLine($"{squirtle.Name} attacks with {squirtle.Attacks[i].Name}");
-                squirtle.RaiseLevel();
+                evolvable.Evolve();
+            }
+            else
+            {
+                Console.WriteLine($"{pokemon.Name} can't evolve");
             }
         }
     }
