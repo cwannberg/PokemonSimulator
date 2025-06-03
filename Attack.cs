@@ -1,18 +1,11 @@
 ﻿using PokemonSimulator.Enums;
 namespace PokemonSimulator;
 
-public class Attack
+public class Attack(string name, ElementalType element, int basepower)
 {
-    public string Name { get; }
-    public int BasePower { get; }
-    public ElementalType Element { get; }
-
-    public Attack(string name, ElementalType element, int basepower)
-    {
-        Name = name;
-        Element = element;
-        BasePower = basepower;
-    }
+    public string Name { get; } = name;
+    public ElementalType Element { get; } = element;
+    public int BasePower { get; } = basepower;
 
     public void Use(int level)
     {

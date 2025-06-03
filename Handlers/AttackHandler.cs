@@ -1,7 +1,6 @@
-﻿
-using PokemonSimulator.Enums;
+﻿using PokemonSimulator.Enums;
 
-namespace PokemonSimulator;
+namespace PokemonSimulator.Handlers;
 
 class AttackHandler
 {
@@ -21,7 +20,8 @@ class AttackHandler
     {
         var flamethrower = new Attack("Flamethrower", ElementalType.Fire, 12);
         var ember = new Attack("Ember", ElementalType.Fire, 6);
-        return new List<Attack> { flamethrower, ember };
+        var blaze = new Attack("Blaze", ElementalType.Fire, 16);
+        return new List<Attack> { flamethrower, ember, blaze };
     }
     public static List<Attack> WaterAttacks()
     {

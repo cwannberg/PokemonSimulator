@@ -2,7 +2,7 @@
 using PokemonSimulator.Interface;
 using PokemonSimulator.Models;
 
-namespace PokemonSimulator;
+namespace PokemonSimulator.Handlers;
 
 public static class PokemonHandler
 {
@@ -13,9 +13,9 @@ public static class PokemonHandler
         Pikachu pikachu = new(8, AttackHandler.GetAttacks(ElementalType.Electric));
         Bulbasaur bulbasaur = new(2, AttackHandler.GetAttacks(ElementalType.Grass));
 
-        List<Pokemon> pokemonList = new List<Pokemon> { charmander, squirtle, pikachu, bulbasaur };
+        List<Pokemon> myPokemonCollection = new List<Pokemon> { charmander, squirtle, pikachu, bulbasaur };
 
-        return pokemonList;
+        return myPokemonCollection;
     }
     public static void EvolvePokemon(Pokemon pokemon)
     {

@@ -1,9 +1,79 @@
-﻿namespace PokemonSimulator;
+﻿using PokemonSimulator.Enums;
+using PokemonSimulator.Handlers;
+using System.Diagnostics;
+
+namespace PokemonSimulator;
 
 class ConsoleUI
 {
 
     public static void Menu()
+    {
+        Console.WriteLine("Menu options");
+        Console.WriteLine("1. View pokemoncollection");
+        Console.WriteLine("2. Fight");
+        Console.WriteLine("3. Add a new pokemon");
+        Console.WriteLine("4. Exit application");
+        Console.WriteLine("Enter a number 1-4: ");
+        int input = int.Parse(Console.ReadLine());
+        switch (input)
+        {
+            case 1:
+                DisplayPokemonCollection();
+                break;
+            case 2:
+                PokemonChoiceMenu();
+                break;
+            case 3:
+                AddNewPokemon();
+                break;
+            case 4:
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    public static void DisplayPokemonCollection()
+    {
+        foreach(Pokemon pokemon in PokemonHandler.CatchPokemons())
+        {
+            Console.WriteLine($"Name: {pokemon.Name} " +
+                              $"Level: {pokemon.Level} " +
+                              $"Type: {pokemon.Elemental}");
+        }
+    }
+    public static void AddNewPokemon()
+    {
+        Console.WriteLine("Add new pokemon");
+        Console.WriteLine("Name: ");
+        string name = Console.ReadLine();
+        Console.WriteLine("Level: ");
+        int level = int.Parse(Console.ReadLine());
+        Console.WriteLine("Elemental type: ");
+        string type = Console.ReadLine().ToLower();
+
+        ElementalType elType;
+        if (type.Equals("fire"))
+        {
+            elType = ElementalType.Fire;
+        }
+        else if (type.Equals("water"))
+        {
+            elType = ElementalType.Water;
+        }
+        else if (type.Equals("electric"))
+        {
+            elType = ElementalType.Electric;
+        }
+        else if (type.Equals("grass"))
+        {
+            elType = ElementalType.Grass;
+        }
+
+    }
+    public static void PokemonChoiceMenu()
     {
         List<Pokemon> pokemonList = PokemonHandler.CatchPokemons();
         bool continueMenu = true;

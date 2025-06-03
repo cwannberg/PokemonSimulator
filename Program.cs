@@ -1,11 +1,9 @@
-﻿namespace PokemonSimulator
+﻿namespace PokemonSimulator;
+
+internal class Program
 {
-    internal class Program
+    static void Main(string[] args)
     {
-        public static List<Pokemon>? _pokemonList;
-        static void Main(string[] args)
-        {
-            ConsoleUI.Menu();
-        }
+        ConsoleUI.Menu();
     }
 }
