@@ -1,6 +1,4 @@
 ﻿using PokemonSimulator.Enums;
-using System.Collections.Concurrent;
-
 namespace PokemonSimulator;
 
 public abstract class Pokemon
@@ -38,7 +36,11 @@ public abstract class Pokemon
         Level = level;
         Attacks = attacks;
     }
-
+    public static void Attack(Pokemon pokemon)
+    {
+        pokemon.GetAttack(pokemon.Attacks);
+        pokemon.RaiseLevel();
+    }
     public void RandomAttack()
     {
         Random random = new();
@@ -65,7 +67,19 @@ public abstract class Pokemon
 
         attacks[chosenAttack].Use(Level);
     }
-
+    public static void Fight(Pokemon pokemon)
+    {
+        while (true)
+        {
+            if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)
+            {
+                Console.WriteLine("Fight ended");
+                break;
+            }
+            Attack(pokemon);
+            Thread.Sleep(1000);
+        }
+    }
     public void RaiseLevel()
     {
         Level++;
