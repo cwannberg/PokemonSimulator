@@ -33,9 +33,14 @@ public static class PokemonHandler
             Console.WriteLine("This pokemon is evolveable!");
             Console.WriteLine($"Would you like to evolve {pokemon.Name}? yes/no");
             string answer = Console.ReadLine().ToLower();
+            answer = InputHandler.ReadValidatedString("Yes or no: ", lettersOnly: true);
             if (answer.Equals("yes"))
             {
                 EvolvePokemon(pokemon);
+            }
+            else
+            {
+                Console.WriteLine($"{pokemon.Name} did not evolve this time");
             }
         }
         return pokemon;
