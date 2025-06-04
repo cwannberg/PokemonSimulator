@@ -1,0 +1,20 @@
+F: When you create a Pokémon and try to access its fields directly – does it work? Why or why not?
+Pokemon-class is abstract and cant be initiated. However subclasses can be and their fields are public and can be accessed.
+
+F: If you later want to add a new property that applies to all Electric-type Pokémon, where should you place it to avoid repetition?
+In the ElectricPokemon.class
+
+F: If instead the new property should apply to all Pokémon, where would be the correct place to define it?
+In the Pokemon.class, which is the baseclass for all Pokemons
+
+F: What happens if you try to add a Charmander to a list that only allows WaterPokemon?
+Cannot convert FirePokemon to WaterPokemon. Charmander can't be in WaterPokemon-list
+
+F: You want to store different types of Pokémon – Charmander, Squirtle, and Pikachu – in the same list. What type should the list have for that to work?
+Pokemon, the blaseclass.
+
+F: When you loop through the list and call Attack(), what ensures that the correct attack behavior is executed for each Pokémon?
+Each pokemon are of different types. Charmander is a FirePokemon and have only access to FireAttacks.
+
+F: If you create a method that only exists on Pikachu, why can’t you call it directly when it’s stored in a List<Pokemon>? How could you still access it?
+Can't call it because Pokemon baseclass doesnt know about Pikachus specific methods. If I want to access it I need to create a Pokemon of type Pikachu and then access it through that object.
