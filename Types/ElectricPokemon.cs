@@ -1,4 +1,5 @@
 ﻿using PokemonSimulator.Enums;
+using PokemonSimulator.Pokemons;
 
 namespace PokemonSimulator.Types;
 

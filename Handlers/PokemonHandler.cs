@@ -1,6 +1,7 @@
 ﻿using PokemonSimulator.Enums;
 using PokemonSimulator.Interface;
 using PokemonSimulator.Models;
+using PokemonSimulator.Pokemons;
 
 namespace PokemonSimulator.Handlers;
 

@@ -1,5 +1,6 @@
 ﻿using PokemonSimulator.Enums;
 using PokemonSimulator.Handlers;
+using PokemonSimulator.Pokemons;
 using System.Diagnostics;
 
 namespace PokemonSimulator;
@@ -16,9 +17,8 @@ class ConsoleUI
             Console.WriteLine("** Menu options **");
             Console.WriteLine("1. View pokemoncollection");
             Console.WriteLine("2. Fight");
-            Console.WriteLine("3. Add a new pokemon");
-            Console.WriteLine("4. Exit application");
-            Console.WriteLine("Enter a number 1-4: ");
+            Console.WriteLine("3. Exit application");
+            Console.WriteLine("Enter a number 1-3: ");
             try
             {
                 int input = int.Parse(Console.ReadLine());
@@ -31,9 +31,6 @@ class ConsoleUI
                         PokemonChoiceMenu();
                         break;
                     case 3:
-                        AddNewPokemon();
-                        break;
-                    case 4:
                         continueMenu = false;
                         break;
                     default:
@@ -55,45 +52,7 @@ class ConsoleUI
                               $"Type: {pokemon.Elemental}");
         }
     }
-    public static void AddNewPokemon()
-    {
-        try
-        {
-            Console.WriteLine("Add new pokemon");
-            Console.WriteLine("Name: ");
-            string name = Console.ReadLine();
-            name = InputHandler.ReadValidatedString("Name: ", lettersOnly: true);
-            Console.WriteLine("Level: ");
-            int level = int.Parse(Console.ReadLine());
-            level = InputHandler.ReadValidatedInt("Level: ", min: 1, max: 100); 
-            Console.WriteLine("Elemental type: ");
-            string type = Console.ReadLine().ToLower();
-            type = InputHandler.ReadValidatedString("Elemental type: ", lettersOnly: true).ToLower();
-
-
-            ElementalType elType;
-            if (type.Equals("fire"))
-            {
-                elType = ElementalType.Fire;
-            }
-            else if (type.Equals("water"))
-            {
-                elType = ElementalType.Water;
-            }
-            else if (type.Equals("electric"))
-            {
-                elType = ElementalType.Electric;
-            }
-            else if (type.Equals("grass"))
-            {
-                elType = ElementalType.Grass;
-            }
-        }
-        catch
-        {
-            Console.WriteLine($"Invalid input");
-        }
-    }
+    
     public static void PokemonChoiceMenu()
     {
         List<Pokemon> pokemonList = PokemonHandler.CatchPokemons();
@@ -112,7 +71,7 @@ class ConsoleUI
             {
                 Pokemon pokemon = PokemonHandler.GetPokemon(input - 1, pokemonList);
 
-                Pokemon.Fight(pokemon);
+                pokemon.Fight(pokemon);
             }
             else
             {

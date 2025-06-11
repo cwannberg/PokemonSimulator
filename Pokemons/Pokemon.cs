@@ -1,5 +1,5 @@
 ﻿using PokemonSimulator.Enums;
-namespace PokemonSimulator;
+namespace PokemonSimulator.Pokemons;
 
 public abstract class Pokemon
 {
@@ -36,11 +36,15 @@ public abstract class Pokemon
         Level = level;
         Attacks = attacks;
     }
-    public static void Attack(Pokemon pokemon)
+
+    private static readonly Random random = new();
+    public void Attack(Pokemon pokemon)
     {
-        pokemon.GetAttack(pokemon.Attacks);
+        Attack chosenAttack = ChooseAttack(pokemon.Attacks);
+        chosenAttack.Use(Level);
         pokemon.RaiseLevel();
     }
+
     public void RandomAttack()
     {
         Random random = new();
@@ -50,7 +54,7 @@ public abstract class Pokemon
         randomAttackFromList.Use(Level);
     }
 
-    public void GetAttack(List<Attack> attacks){
+    public Attack ChooseAttack(List<Attack> attacks){
         Console.WriteLine("Pick one of the following attacks:");
         for(int i = 0; i < attacks.Count; i++)
         {
@@ -58,16 +62,16 @@ public abstract class Pokemon
         }
         Console.WriteLine($"{attacks.Count} - Random attack");
 
-        int chosenAttack = int.Parse(Console.ReadLine());
+        int choice = int.Parse(Console.ReadLine());
 
-        if(chosenAttack == attacks.Count())
+        if(choice == attacks.Count)
         {
-            RandomAttack();
+            return attacks[random.Next(attacks.Count)];
         }
 
-        attacks[chosenAttack].Use(Level);
+        return attacks[choice];
     }
-    public static void Fight(Pokemon pokemon)
+    public void Fight(Pokemon pokemon)
     {
         while (true)
         {

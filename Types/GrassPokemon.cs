@@ -1,4 +1,5 @@
 ﻿using PokemonSimulator.Enums;
+using PokemonSimulator.Pokemons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
